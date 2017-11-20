@@ -22,9 +22,9 @@
         var tmpl = ''
 + '<div class="angular-date-picker">'
 + '    <div class="_month">'
-+ '        <button type="button" class="_previous" ng-click="changeMonthBy(-1)">&laquo;</button>'
++ '        <button type="button" class="_previous btn btn-xs" ng-click="changeMonthBy(-1)"><i class="fa fa-arrow-left"></i></button>'
 + '        <span title="{{ months[month].fullName }}">{{ months[month].shortName }}</span> {{ year }}'
-+ '        <button type="button" class="_next" ng-click="changeMonthBy(1)">&raquo;</button>'
++ '        <button type="button" class="_next btn btn-xs" ng-click="changeMonthBy(1)"><i class="fa fa-arrow-right"></i></button>'
 + '    </div>'
 + '    <div class="_days" ng-click="pickDay($event)">'
 + '        <div class="_day-of-week" ng-repeat="dayOfWeek in daysOfWeek">{{ dayOfWeek.firstLetter }}</div>'
@@ -52,9 +52,6 @@
                     months = [],
                     daysOfWeek = [],
                     firstDayOfWeek = 1;
-                // typeof $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK === 'number'
-                //         ? ($locale.DATETIME_FORMATS.FIRSTDAYOFWEEK + 1) % 7
-                //         : 0;
 
                 for (var i = 1; i <= 31; i++) {
                     days.push(i);
@@ -94,6 +91,8 @@
                             && selectedDate.getMonth() === $scope.month
                         ? selectedDate.getDate()
                         : null;
+
+
 
                     var firstDayOfMonth = new Date($scope.year, $scope.month, 1),
                         lastDayOfMonth = new Date($scope.year, $scope.month + 1, 0),
@@ -147,7 +146,7 @@
                         var day = parseInt(target.text(), 10);
 
                         $scope.selectedDay = day;
-                        selectedDate = new Date($scope.year, $scope.month, day);
+                        selectedDate = new Date($scope.year, $scope.month, day, selectedDate.getHours(), selectedDate.getMinutes());
 
                         if (ngModel) {
                             ngModel.$setViewValue(
